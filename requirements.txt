@@ -1,0 +1,14 @@
+# tensorflow==2.10.0
+dlib>=19.24.0
+pandas
+keras
+opencv-python
+opencv-python-headless
+ultralytics
+numpy==1.23.5  
+paho-mqtt==1.6.1
+python-dotenv
+h5py==3.6.0
+pillow>=9.5.0
+tqdm>=4.65.0
+pygobject

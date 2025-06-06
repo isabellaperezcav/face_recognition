@@ -1,0 +1,20 @@
+# Entorno virtual
+venv/
+.env
+
+# Archivos de configuración/local
+__pycache__/
+*.log
+tree.txt
+
+# Modelos y builds
+build/
+models/shape_predictor_68_face_landmarks.dat
+models/facenet_triplet_model_finetuned.keras
+
+models/*.keras
+models/*.dat
+
+# Jupyter / análisis exploratorios
+.ipynb_checkpoints/
+*.ipynb
