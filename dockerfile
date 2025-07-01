@@ -49,28 +49,14 @@ RUN python3 -m pip install --upgrade pip
 
 # ---------------------------------------------------
 # Descargar y compilar OpenCV
-WORKDIR /opt
-RUN git clone --branch ${OPENCV_VERSION} https://github.com/opencv/opencv.git && \
-    git clone --branch ${OPENCV_VERSION} https://github.com/opencv/opencv_contrib.git
+# Copiar el Makefile para la instalación personalizada de OpenCV
+COPY Makefile /app/opencv-install/Makefile
 
-WORKDIR /opt/opencv/build
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib/modules \
-    -D PYTHON_EXECUTABLE=$(which python3) \
-    -D BUILD_opencv_python3=ON \
-    -D INSTALL_PYTHON_EXAMPLES=OFF \
-    -D BUILD_EXAMPLES=OFF \
-    -D ENABLE_NEON=ON \
-    -D ENABLE_VFPV3=ON \
-    -D WITH_QT=OFF \
-    -D WITH_OPENGL=ON .. && \
-    make -j$(nproc) && \
-    make install && \
-    ldconfig
+# Ejecutar la instalación con Makefile
+WORKDIR /app/opencv-install
+RUN make install && ldconfig 
+# el idconfig es por si OpenCV instaló bibliotecas compartidas nuevas
 
-# Eliminar fuentes de OpenCV tras la instalación
-RUN rm -rf /opt/opencv /opt/opencv_contrib
 
 # ---------------------------------------------------
 # Instalar Node.js 16
