@@ -2,13 +2,13 @@
 .PHONY: test deps download build clean astyle cmds docker
 
 # GoCV version to use.
-GOCV_VERSION?="v0.41.0"
+#GOCV_VERSION?="v0.41.0"
 
 # OpenCV version to use.
 OPENCV_VERSION?=4.11.0
 
 # Go version to use when building Docker image
-GOVERSION?=1.23.4
+#GOVERSION?=1.23.4
 
 # Temporary directory to put files into.
 TMP_DIR?=/tmp/
@@ -257,7 +257,6 @@ build_all:
 
 # Cleanup temporary build files.
 clean:
-	go clean --cache
 	rm -rf $(TMP_DIR)opencv
 
 # Cleanup old library files.
@@ -291,7 +290,7 @@ ifeq ($(shell uname -s),Darwin)
 	brew install pkgconfig
 endif
 	@$(MAKE) deps download sudo_pre_install_clean build sudo_install clean verify
-	@go run ./cmd/version/main.go
+
 
 # Do everything on Raspbian.
 install_raspi: deps download sudo_pre_install_clean build_raspi sudo_install clean verify
@@ -331,21 +330,6 @@ sudo_install_openvino:
 	sudo ldconfig
 	cd -
 
-# Build a minimal Go app to confirm gocv works.
-verify:
-	go run ./cmd/version/main.go
-
-# Build a minimal Go app to confirm gocv works with statically built OpenCV.
-verify_static:
-	go run -tags static ./cmd/version/main.go
-
-# Build a minimal Go app to confirm gocv cuda works.
-verify_cuda:
-	go run ./cmd/cuda/main.go
-
-# Build a minimal Go app to confirm gocv openvino works.
-verify_openvino:
-	go run -tags openvino ./cmd/version/main.go
 
 # testdata.
 .PHONY: create_testdata_dir download_wechat_testdata download_onnx_testdata download_goturn_testdata testdata
@@ -374,25 +358,6 @@ download_goturn_testdata: create_testdata_dir
 
 testdata: create_testdata_dir download_wechat_testdata download_onnx_testdata download_goturn_testdata
 
-# Runs tests.
-test:
-	go test -tags matprofile . ./contrib
-
-test_cuda:
-	go test -tags matprofile ./cuda
-
-docker:
-	docker build --build-arg OPENCV_VERSION=$(OPENCV_VERSION) --build-arg GOVERSION=$(GOVERSION) .
-
-astyle:
-	astyle --project=.astylerc --recursive *.cpp,*.h
-
-
-releaselog:
-	git log --pretty=format:"%s" $(GOCV_VERSION)..HEAD
-
 CMDS=basic-drawing caffe-classifier captest capwindow counter dnn-detection dnn-pose-detection dnn-style-transfer faceblur facedetect facedetect-from-url feature-matching find-chessboard find-circles find-lines hand-gestures hello img-similarity mjpeg-streamer motion-detect saveimage savevideo showimage ssd-facedetect tf-classifier tracking version xphoto
-cmds:
-	for cmd in $(CMDS) ; do \
-		go build -o build/$$cmd cmd/$$cmd/main.go ;
-	done ; \
+
+ 
