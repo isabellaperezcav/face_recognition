@@ -54,8 +54,7 @@ COPY Makefile /app/opencv-install/Makefile
 
 # Ejecutar la instalación con Makefile
 WORKDIR /app/opencv-install
-RUN make install && ldconfig 
-# el idconfig es por si OpenCV instaló bibliotecas compartidas nuevas
+RUN make install_jetson
 
 
 # ---------------------------------------------------

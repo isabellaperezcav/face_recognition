@@ -172,7 +172,7 @@ build_jetson:
 		-D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
 		-D BUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} \
 		-D OPENCV_EXTRA_MODULES_PATH=$(TMP_DIR)opencv/opencv_contrib-$(OPENCV_VERSION)/modules \
-		-D BUILD_DOCS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=ON -D BUILD_opencv_java=OFF -D BUILD_opencv_python=NO -D BUILD_opencv_python2=NO -D BUILD_opencv_python3=NO \
+		-D BUILD_DOCS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=ON -D BUILD_opencv_java=OFF -D BUILD_opencv_python=ON -D BUILD_opencv_python2=NO -D BUILD_opencv_python3=NO \
 		-D WITH_OPENCL=OFF \
 		-D WITH_CUDA=ON \
 		-D CUDA_ARCH_BIN=5.3 \
