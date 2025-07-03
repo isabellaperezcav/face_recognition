@@ -38,6 +38,9 @@ RUN apt-get update && \
         libavutil-dev \
         libswscale-dev \
         libgtk2.0-dev && \
+        libgirepository1.0-dev \
+        libcairo2-dev \
+        gir1.2-gtk-3.0 \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -64,6 +67,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # ---------------------------------------------------
+
 # Crear directorio de trabajo
 WORKDIR /app
 
