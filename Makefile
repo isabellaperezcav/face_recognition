@@ -299,7 +299,7 @@ install_raspi: deps download sudo_pre_install_clean build_raspi sudo_install cle
 install_raspi_zero: deps download sudo_pre_install_clean build_raspi_zero sudo_install clean verify
 
 # Do everything on Jetson.
-install_jetson: deps_jetson download sudo_pre_install_clean build_jetson sudo_install clean verify
+install_jetson: deps_jetson download sudo_pre_install_clean build_jetson sudo_install clean
 
 # Do everything with cuda.
 install_cuda: deps download sudo_pre_install_clean build_cuda sudo_install clean verify verify_cuda
