@@ -38,7 +38,6 @@ from config.settings import config
 # Utilities
 from utils.logging_utils import setup_logging, setup_logger
 from utils.mqtt_handler import MQTTHandler
-# from utils.wrtc_streamer import KinesisStreamer # COMENTADO: Asumimos que JS maneja Kinesis
 from utils.video_capture import VideoCapture
 from utils.virtual_camera_writer import VirtualCamera
 
