@@ -20,6 +20,8 @@ RUN apt-get update && \
         curl \
         wget \
         unzip \
+        gnupg \
+        ca-certificates \
         libssl-dev \
         libcurl4-openssl-dev \
         libatlas-base-dev \
@@ -76,6 +78,15 @@ RUN python3 -m pip install --no-cache-dir --root-user-action=ignore -r /app/requ
 # ---------------------------------------------------
 # Instalar TensorFlow 2.10
 RUN python3 -m pip install --no-cache-dir tensorflow==2.10.0
+
+# ---------------------------------------------------
+# Descargar e instalar el paquete local de cuSparseLt para ARM64
+RUN wget https://developer.download.nvidia.com/compute/cusparselt/0.7.1/local_installers/cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb && \
+    dpkg -i cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb && \
+    cp /var/cusparselt-local-tegra-repo-ubuntu2204-0.7.1/cusparselt-*-keyring.gpg /usr/share/keyrings/ && \
+    apt-get update && \
+    apt-get install -y libcusparselt0 libcusparselt-dev && \
+    rm cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb
 
 # Instalar PyTorch + torchvision Jetson (JetPack 4.6)
 RUN python3 -m pip install --no-cache-dir \
