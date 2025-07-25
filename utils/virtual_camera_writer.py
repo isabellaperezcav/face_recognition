@@ -5,24 +5,24 @@ import logging
 logger = logging.getLogger(__name__)
 
 class VirtualCamera:
-    def __init__(self, device='/dev/video2', width=640, height=480, fps=30):
-        self.device = device
+    def __init__(self, device_path='/dev/video2', width=640, height=480, fps=30):
+        self.device_path = device_path
         self.width = width
         self.height = height
         self.fps = fps
         self.writer = None
-        self.enabled = os.path.exists(self.device)
+        self.enabled = os.path.exists(self.device_path)
 
         if self.enabled:
-            logger.info(f"Virtual camera found at {self.device}, initializing...")
+            logger.info(f"Virtual camera found at {self.device_path}, initializing...")
             fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-            self.writer = cv2.VideoWriter(self.device, fourcc, self.fps, (self.width, self.height))
+            self.writer = cv2.VideoWriter(self.device_path, fourcc, self.fps, (self.width, self.height))
             if not self.writer.isOpened():
-                logger.error(f"Failed to open virtual camera at {self.device}")
+                logger.error(f"Failed to open virtual camera at {self.device_path}")
                 self.enabled = False
                 self.writer = None
         else:
-            logger.warning(f"Virtual camera device {self.device} not found.")
+            logger.warning(f"Virtual camera device {self.device_path} not found.")
 
     def write(self, frame):
         """Write frame to virtual camera (alias of send_frame)."""

@@ -1,5 +1,9 @@
 # Base Jetson/Ubuntu
-FROM arm64v8/ubuntu:22.04
+# FROM arm64v8/ubuntu:18.04
+FROM nvcr.io/nvidia/l4t-base:r32.7.1
+
+# FROM nvcr.io/nvidia/l4t-pytorch:r32.6.1-pth1.9-py3 este es mas para toch vision 
+
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -40,10 +44,9 @@ RUN apt-get update && \
         libavutil-dev \
         libswscale-dev \
         libgtk2.0-dev && \
-        libopenblas-base \
-        libopenmpi-dev \
-        libomp-dev \
-        ca-certificates \
+        # libopenmpi-dev \
+        # libomp-dev \
+        # ca-certificates \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -87,12 +90,12 @@ RUN python3 -m pip install --no-cache-dir tensorflow==2.10.0
 # Descargar e instalar el paquete local de cuSparseLt para ARM64
 
 # Instalar cuSparseLt para JetPack 4.6.1
-RUN wget https://developer.download.nvidia.com/compute/cusparselt/0.7.1/local_installers/cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb \
+RUN wget https://developer.download.nvidia.com/compute/cusparselt/0.7.1/local_installers/cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb && \
     dpkg -i cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb && \
     cp /var/cusparselt-local-tegra-repo-ubuntu2204-0.7.1/cusparselt-*-keyring.gpg /usr/share/keyrings/ && \
     apt-get update && \
     apt-get install -y libcusparselt0 libcusparselt-dev && \
-    rm cusparselt-local-tegra-repo-ubuntu1804-0.7.1_1.0-1_arm64.deb
+    rm cusparselt-local-tegra-repo-ubuntu2204-0.7.1_1.0-1_arm64.deb
 
 # Instalar PyTorch para JetPack 4.6.1 (JetPack 4.6.1 = JP 46.1 = v461)
 ENV TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v511/pytorch/torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
