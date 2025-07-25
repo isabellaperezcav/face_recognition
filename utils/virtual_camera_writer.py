@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class VirtualCamera:
-    def __init__(self, device_path='/dev/video2', width=640, height=480, fps=30):
+    def __init__(self, device_path='/dev/video10', width=640, height=480, fps=30):
         self.device_path = device_path
         self.width = width
         self.height = height
