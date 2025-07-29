@@ -36,6 +36,3 @@ Copiar
 Editar
 docker buildx build --platform linux/arm64 -t skaion:v1 .
 
-
-user: $oauthtoken
-password: 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
