@@ -19,4 +19,4 @@ models/*.dat
 .ipynb_checkpoints/
 *.ipynb
 
-# imagen.txt
+imagen.txt
